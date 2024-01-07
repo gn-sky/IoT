@@ -21,20 +21,23 @@ namespace IoTCalalogueAPI.Controllers
         }
 
         [HttpGet(Name = "GetCatalogue")]
-        public IEnumerable<IoTDevice> GetCatalogue()
+        public ActionResult<IEnumerable<IoTDevice>> GetCatalogue()
         {
-            return catalogue;
+            return Ok( catalogue);
         }
 
         [HttpGet("{deviceId}",  Name = "GetDevice")]
-        public IoTDevice GetDevice(int deviceId)
+        public ActionResult<IoTDevice> GetDevice(int deviceId)
         {
             var device = catalogue.SingleOrDefault(c => c.Id == deviceId);
+
+            if (device == null)
+                return NotFound($"Device with Id { deviceId } was not found");
 
             // save changed back to the json database
             jsonDBHelper.SaveToDB(catalogue);
 
-            return device ?? new IoTDevice();
+            return Ok(device);
         }
 
         [HttpPost(Name = "AddDevice")]
