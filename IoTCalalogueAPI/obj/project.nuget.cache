@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "+be1dvKUNV3z3vZTqhDrumymlFccjdBEfKlZuziGU85A2iUbUraZCNxocAcFa7yapLslBLJo4nzc7RicDoIYxg==",
+  "success": true,
+  "projectFilePath": "C:\\dev\\asp-dot-net-core-6-deploying-web-api-azure-management\\02\\demos\\module02\\code\\IoTCalalogueAPI\\IoTCalalogueAPI\\IoTCalalogueAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Eugene\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Eugene\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Eugene\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\Eugene\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\Eugene\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\Eugene\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}

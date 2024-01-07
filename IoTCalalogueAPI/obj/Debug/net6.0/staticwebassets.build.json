@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "CwzQH8GeTNR51edN3iwhxCR4tYIu3tCSbnBDwXoqeMY=",
+  "Source": "IoTCalalogueAPI",
+  "BasePath": "_content/IoTCalalogueAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
