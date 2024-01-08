@@ -32,7 +32,7 @@ namespace IoTCalalogueAPI.Controllers
             var device = catalogue.SingleOrDefault(c => c.Id == deviceId);
 
             if (device == null)
-                return NotFound($"Device with Id { deviceId } was not found");
+                return NotFound($"Device with id { deviceId } was not found");
 
             // save changed back to the json database
             jsonDBHelper.SaveToDB(catalogue);
@@ -41,10 +41,10 @@ namespace IoTCalalogueAPI.Controllers
         }
 
         [HttpPost(Name = "AddDevice")]
-        public IoTDevice AddDevice(IoTDevice device)
+        public ActionResult<IoTDevice> AddDevice(IoTDevice device)
         {
             if (device == null)
-                return new IoTDevice();
+                return BadRequest("Device cannot be null");
 
             int newId = catalogue.Any() ? catalogue.Max(c => c.Id) + 1 : 1;
             device.Id = newId;
@@ -54,7 +54,7 @@ namespace IoTCalalogueAPI.Controllers
             // save changes back to the json database
             jsonDBHelper.SaveToDB(catalogue);
 
-            return device;
+            return CreatedAtRoute("GetDevice", new { deviceId = device.Id }, device);
         }
 
         [HttpPut("{deviceId}/{newPrice}", Name = "UpdatePrice")]
