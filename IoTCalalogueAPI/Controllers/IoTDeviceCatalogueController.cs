@@ -23,7 +23,7 @@ namespace IoTCalalogueAPI.Controllers
         [HttpGet(Name = "GetCatalogue")]
         public ActionResult<IEnumerable<IoTDevice>> GetCatalogue()
         {
-            return Ok( catalogue);
+            return Ok(catalogue);
         }
 
         [HttpGet("{deviceId}",  Name = "GetDevice")]
