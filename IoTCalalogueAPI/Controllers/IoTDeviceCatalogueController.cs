@@ -58,31 +58,33 @@ namespace IoTCalalogueAPI.Controllers
         }
 
         [HttpPut("{deviceId}/{newPrice}", Name = "UpdatePrice")]
-        public IoTDevice UpdatePrice(int deviceId, double newPrice)
+        public ActionResult UpdatePrice(int deviceId, double newPrice)
         {
             var device = catalogue.SingleOrDefault(c => c.Id == deviceId);
             if (device == null)
-                return new IoTDevice();
+                return NotFound($"Device with id { deviceId } was not found");
 
             device.Price = newPrice;
 
             // save changes back to the json database
             jsonDBHelper.SaveToDB(catalogue);
 
-            return device;
+            return NoContent();
         }
 
         [HttpDelete("{deviceId}", Name = "DeleteDevice")]
-        public void DeleteDevice(int deviceId)
+        public ActionResult DeleteDevice(int deviceId)
         {
             var device = catalogue.SingleOrDefault(c => c.Id == deviceId);
-            if (device != null)
-            {
-                catalogue.Remove(device);
+            if (device == null) {
+                return NotFound($"Device with id {deviceId} was not found");
             }
+
+            catalogue.Remove(device);
 
             // save changes back to the json database
             jsonDBHelper.SaveToDB(catalogue);
+            return NoContent();
         }
     }
 }
