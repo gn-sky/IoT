@@ -21,27 +21,30 @@ namespace IoTCalalogueAPI.Controllers
         }
 
         [HttpGet(Name = "GetCatalogue")]
-        public IEnumerable<IoTDevice> GetCatalogue()
+        public ActionResult<IEnumerable<IoTDevice>> GetCatalogue()
         {
-            return catalogue;
+            return Ok(catalogue);
         }
 
         [HttpGet("{deviceId}",  Name = "GetDevice")]
-        public IoTDevice GetDevice(int deviceId)
+        public ActionResult<IoTDevice> GetDevice(int deviceId)
         {
             var device = catalogue.SingleOrDefault(c => c.Id == deviceId);
+
+            if (device == null)
+                return NotFound($"Device with id { deviceId } was not found");
 
             // save changed back to the json database
             jsonDBHelper.SaveToDB(catalogue);
 
-            return device ?? new IoTDevice();
+            return Ok(device);
         }
 
         [HttpPost(Name = "AddDevice")]
-        public IoTDevice AddDevice(IoTDevice device)
+        public ActionResult<IoTDevice> AddDevice(IoTDevice device)
         {
             if (device == null)
-                return new IoTDevice();
+                return BadRequest("Device cannot be null");
 
             int newId = catalogue.Any() ? catalogue.Max(c => c.Id) + 1 : 1;
             device.Id = newId;
@@ -51,35 +54,37 @@ namespace IoTCalalogueAPI.Controllers
             // save changes back to the json database
             jsonDBHelper.SaveToDB(catalogue);
 
-            return device;
+            return CreatedAtRoute("GetDevice", new { deviceId = device.Id }, device);
         }
 
         [HttpPut("{deviceId}/{newPrice}", Name = "UpdatePrice")]
-        public IoTDevice UpdatePrice(int deviceId, double newPrice)
+        public ActionResult UpdatePrice(int deviceId, double newPrice)
         {
             var device = catalogue.SingleOrDefault(c => c.Id == deviceId);
             if (device == null)
-                return new IoTDevice();
+                return NotFound($"Device with id { deviceId } was not found");
 
             device.Price = newPrice;
 
             // save changes back to the json database
             jsonDBHelper.SaveToDB(catalogue);
 
-            return device;
+            return NoContent();
         }
 
         [HttpDelete("{deviceId}", Name = "DeleteDevice")]
-        public void DeleteDevice(int deviceId)
+        public ActionResult DeleteDevice(int deviceId)
         {
             var device = catalogue.SingleOrDefault(c => c.Id == deviceId);
-            if (device != null)
-            {
-                catalogue.Remove(device);
+            if (device == null) {
+                return NotFound($"Device with id {deviceId} was not found");
             }
+
+            catalogue.Remove(device);
 
             // save changes back to the json database
             jsonDBHelper.SaveToDB(catalogue);
+            return NoContent();
         }
     }
 }
